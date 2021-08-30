@@ -1,0 +1,27 @@
+{
+  "name": "chatting-demo",
+  "version": "1.0.0",
+  "description": "채팅을 위한 소켓통신 데모 서버입니다.",
+  "main": "app.js",
+  "dependencies": {
+    "chokidar": "^3.5.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.3",
+    "socket.io": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimhanui/chatting-demo.git"
+  },
+  "author": "kimhanui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimhanui/chatting-demo/issues"
+  },
+  "homepage": "https://github.com/kimhanui/chatting-demo#readme"
+}

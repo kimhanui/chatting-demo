@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>chatting-demo</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <h1>You are <i><span id="whoami"></span></i> !</h1>
+  <div>
+    미러모드 : <span id="mirror-text" style="color:red">true</span>
+    <button id="mirror-mode">미러모드</button>
+  </div>
+  <pre>미러모드는 다른 사용자와 통신하지 않고 오직 서버에서 잘 수신했는지 확인하는 용도입니다. 
+    <br>보낸 메시지를 응답으로 반환합니다.
+	</pre>
+  <div>
+    <ul id="chat-list">
+    </ul>
+  </div>
+  <input type="text" id="text"></input>
+  <button type="submit" id="text-btn">전송</button>
+</body>
+
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // chat 네임스페이스에 접속
+  const socket = io.connect('http://{{serverip}}/chat', {
+    path: '/socket.io',
+  });
+  const whoami = document.querySelector("#whoami");
+  // This prints "undefined" because "socket" variable is not executed yet
+  // console.log('load: ' + socket.id);
+  
+  const area = document.querySelector("#chat-list");
+  const mirrorBtn = document.querySelector('#mirror-mode');
+  const mirrorText = document.querySelector('#mirror-text');
+  const text = document.querySelector('#text');
+  let mirrorMode = true;
+  
+  // 사용자 입장
+  socket.on('join', function (data) {
+    if(data.whoami !== null) whoami.innerText= socket.id;
+    if(mirrorMode === false){
+      const chat = document.createElement('li');
+      chat.style.color="grey";
+      chat.innerText = data.chat;
+      area.appendChild(chat);
+    }
+  })
+
+  // 사용자간 채팅
+  socket.on('chat-get', function (data) {
+    console.log(data);
+    const chat = document.createElement('li');
+    chat.style.color="grey";
+    chat.innerText = `${data.user}:   ${data.msg}`;
+    area.appendChild(chat);
+  });
+
+
+  // 사용자 퇴장
+  socket.on('exit', function (data) {
+    if(mirrorMode === false){
+      const chat = document.createElement('li');
+      chat.style.color="grey";
+      chat.innerText = data.chat;
+      area.appendChild(chat);
+    }
+  })
+
+  // mirror모드 설정
+  mirrorBtn.addEventListener('click', () => {
+    mirrorMode = !mirrorMode;
+    if (mirrorMode) mirrorText.style.color = 'red';
+    else mirrorText.style.color = 'grey';
+    mirrorText.innerText = mirrorMode;
+    
+  });
+
+  // 브라우저에서 채팅 입력
+  document.querySelector('#text-btn').addEventListener('click', function (e) {
+    e.preventDefault(); // 새로고침 막는다
+
+    const chat = document.createElement('li');
+    chat.style.color="black";
+    chat.innerText = `${socket.id}: ${text.value}`;
+    area.appendChild(chat);
+
+    socket.emit('chat-push', {
+      mirrorMode: mirrorMode,
+      user: socket.id,
+      msg: text.value
+    })
+    socket.off('chat-push');
+  });
+</script>
