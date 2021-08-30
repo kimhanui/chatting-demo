@@ -1,7 +1,7 @@
-# <font style="color: navy">chatting-demo</font>
+# chatting-demo
 채팅을 위한 소켓통신 데모 서버입니다.
 
-# <font style="color: navy">이벤트 설명</font>
+# 이벤트 설명
 `chat-push` 이벤트
 
 - 클라이언트에서 채팅 메시지를 서버에 전송합니다.
@@ -16,7 +16,7 @@ data = {
 
 `chat-get` 이벤트
 
-- 서버는 같은 채팅방 (`111`으로 고정)에 있는 사용자들에게 메시지를 전송합니다.
+- 서버는 같은 채팅방 (`1111`으로 고정)에 있는 사용자들에게 메시지를 전송합니다.
 
 ```js
 data = {
@@ -25,7 +25,7 @@ data = {
 }
 ```
 
-# <font style="color: navy">미러 모드 사용하기</font>
+# 미러 모드 사용하기
 
 ## 미러 모드 `on`
 
