@@ -25,7 +25,6 @@ module.exports = (server, app) => {
           user: "server",
           msg: `"${msg}" 를 수신했습니다`
         };
-        console.log('----' + socket.id);
         // socket.to(socket.id).emit('chat-get', res); // IDK but not working
         socket.emit('chat-get', res);
       }
