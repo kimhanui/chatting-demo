@@ -35,7 +35,7 @@ data = {
 
 ## 미러 모드 `on`
 
-서버에서 내 메시지를 거의 그대로 응답합니다.
+서버에서 내 메시지를 그대로 응답합니다.
 
 ![image](https://user-images.githubusercontent.com/30483337/131374374-bff985f3-5f37-4843-b5c7-386471e65279.png)
 
